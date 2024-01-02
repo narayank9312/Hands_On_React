@@ -1,30 +1,4 @@
-import React from "react";
-import ReactDom from "react-dom/client";
-
-/**
- * Header
- * -Logo
- * -Nav Items
- * Body
- * -Search
- * -RestaurantContainer
- *  -RestaurCard
- *   -image
- *   -cussines name of res stare rating etc , delivery time
- * Footer
- *-CopyRoight
- *-links
- *- Address
- *-Contact
- */
-
-// JSX -> it is like html and xml synatx
-
-//  like react element  is this a valid ajavscript ? your js enginge does
-// not understand JSx it understand ecmascrip es6
-const imageUrl =
-  "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
-const resObj = [
+const resList = [
   {
     info: {
       id: "382780",
@@ -1503,69 +1477,5 @@ const resObj = [
     },
   },
 ];
-const Header = () => {
-  return (
-    <div className="header">
-      <div className="logo-container">
-        <img
-          className="logo"
-          src="https://previews.123rf.com/images/emcrea14/emcrea142102/emcrea14210201250/164594812-nj-letter-logo-design-mit-restaurantkonzept-modernes-letter-logo-design-mit-kreisf%C3%B6rmiger-gabel-und.jpg"
-        />
-      </div>
-      <div className="nav-items">
-        <ul>
-          <li>Home</li>
-          <li>About US</li>
-          <li>Contact Us</li>
-          <li>Cart</li>
-        </ul>
-      </div>
-    </div>
-  );
-};
 
-const RestarantCard = (props) => {
-  const {
-    resCardData: {
-      info: { name, avgRating, cuisines, sla, cloudinaryImageId },
-    },
-  } = props;
-  return (
-    <div className="res-card" style={{ backgroundColor: "#f0f0f0" }}>
-      <img
-        className="res-logo"
-        alt="res-logo"
-        src={imageUrl + cloudinaryImageId}
-      />
-      <h3>{name}</h3>
-      <h4>{cuisines.join(", ")}</h4>
-      <h3>{avgRating}</h3>
-      <h3>{sla.deliveryTime}</h3>
-    </div>
-  );
-};
-const Body = () => {
-  return (
-    <div className="res-Card">
-      <div className="search">Search</div>
-      <div className="res-container">
-        {resObj.map((restrauant) => (
-          <RestarantCard key={restrauant.info.id} resCardData={restrauant} />
-        ))}
-        {/* <RestarantCard resCardData={resObj} /> */}
-      </div>
-    </div>
-  );
-};
-const AppLayout = () => {
-  return (
-    <div className="app">
-      <Header />
-      <Body />
-    </div>
-  );
-};
-
-const root = ReactDom.createRoot(document.getElementById("root"));
-// root.render(heading); // how you render element
-root.render(<AppLayout />); // how you render Component
+export default resList;
