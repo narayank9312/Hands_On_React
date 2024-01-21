@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import resList from "../utils/mockData";
 import RestarantCard from "./RestarantCard";
 import Shimmer from "./Shimmer";
+import { REST_API } from "../utils/constant";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [restListData, setrestListData] = useState([]);
@@ -15,9 +17,7 @@ const Body = () => {
   //   ("https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.821073335771809&lng=77.65771263820804&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
 
   const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.821073335771809&lng=77.65771263820804&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
+    const data = await fetch(REST_API);
     const json = await data.json();
     console.log(
       json?.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
@@ -81,7 +81,12 @@ const Body = () => {
         {console.log("restListData,restListData", restListData)}
 
         {filterListRest?.map((restrauant) => (
-          <RestarantCard key={restrauant.info.id} resCardData={restrauant} />
+          <Link
+            key={restrauant.info.id}
+            to={"restaurant/" + restrauant.info.id}
+          >
+            <RestarantCard resCardData={restrauant} />
+          </Link>
         ))}
       </div>
     </div>
