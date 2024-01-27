@@ -76,3 +76,13 @@
 .filter {
   display: flex;
 }
+
+.nav-item-container {
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+.user-card {
+  padding: 10px;
+  border: 1px solid black;
+}

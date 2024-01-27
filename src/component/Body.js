@@ -4,17 +4,19 @@ import RestarantCard from "./RestarantCard";
 import Shimmer from "./Shimmer";
 import { REST_API } from "../utils/constant";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [restListData, setrestListData] = useState([]);
   const [filterListRest, setfilterListRest] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
+  //   "/api/dapi/restaurants/list/v5?lat=12.821073335771809&lng=77.65771263820804&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+  //   ("https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.821073335771809&lng=77.65771263820804&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+
   useEffect(() => {
     fetchData();
   }, []);
-  //   "/api/dapi/restaurants/list/v5?lat=12.821073335771809&lng=77.65771263820804&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-  //   ("https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.821073335771809&lng=77.65771263820804&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
 
   const fetchData = async () => {
     const data = await fetch(REST_API);
@@ -22,6 +24,7 @@ const Body = () => {
     console.log(
       json?.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
     );
+
     //optional chaining
     // data.cards[1].card.card.gridElements.infoWithStyle.restaurants;
     setrestListData(
@@ -41,7 +44,12 @@ const Body = () => {
   //   if (restListData.length === 0) {
   //     return <Shimmer />;
   //   }
+  const onlineStatus = useOnlineStatus();
+  console.log("onlineStatus-----------", onlineStatus);
 
+  if (!onlineStatus) {
+    return <div> you are offline </div>;
+  }
   return restListData?.length === 0 ? (
     <Shimmer />
   ) : (
